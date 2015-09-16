@@ -1,6 +1,15 @@
 require 'sinatra/base'
+require_relative 'water'
+require_relative 'ship'
+require_relative 'player'
+require_relative 'game'
+require_relative 'cell'
+require_relative 'board'
 
 class BattleshipWeb < Sinatra::Base
+  
+  set :views, proc { File.join(root, '..', 'views')}
+
   get '/' do
     erb :index
   end
@@ -11,10 +20,10 @@ class BattleshipWeb < Sinatra::Base
   end
 
   get '/board' do
+    @board = Board.new(Cell)
   	erb :board
   end
 
-  set :views, proc { File.join(root, '..', 'views')}
   # start the server if ruby file executed directly
   run! if app_file == $0
 

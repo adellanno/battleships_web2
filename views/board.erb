@@ -1,1 +1,11 @@
-Im a board
+<div id='board'>
+	<table>
+		<% @board.grid.each do |elem| %>
+			<tr>
+				<td>
+					<%= elem %>
+				</td>
+			</tr>
+		<% end %>
+	</table>
+</div>
