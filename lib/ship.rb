@@ -3,7 +3,8 @@ class Ship
 	attr_accessor :hits
 
 	def initialize(size)
-		@size, @hits = size, 0
+		@size = size
+		@hits = 0
 	end
 
 	def hit!

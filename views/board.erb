@@ -1,13 +1,15 @@
+<p><%= @name %>'s Game!</p>
+
 
 <div id='board'>
   <table>
       <% number = 0 %>
-      <% @board.grid.each do |elem| %>
+      <% $board.grid.each do |elem| %>
         <% if number <= 9 %>
           <td style= "height:10px;width:10px;background:green;">
             <%= elem %>
-            <% number += 1 %>
           </td>
+          <% number += 1 %>
         <% elsif number > 9 %>
           <tr>
             <td style= "height:10px;width:10px;background:green;">
@@ -22,9 +24,12 @@
 </div>
 
 <div>
-  <form action >
+  <form action="/board" method="post">
   Please enter the type of ship(size) you would like to place
-  <input type="text" name="ship_type" required>
+  <select name="ship_type">
+    <option value="destroyer">Destroyer</option>
+    <option value="carrier">Carrier</option>
+    </select>
   <br>
   Please enter some coordinates to place your ship
   <input type="text" name="coordinates" required>
@@ -37,8 +42,9 @@
   </form>
 
 <% if @coordinates %>
-<% @board.place(@ship_type, @coordinates, @orientation) %>
+<% $board.place(@ship_type, @coordinates, @orientation) %>
 <% end %>
+
 
 </div>
 

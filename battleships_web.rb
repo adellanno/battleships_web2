@@ -5,8 +5,13 @@ require './lib/player'
 require './lib/game'
 require './lib/cell'
 require './lib/board'
+require 'pry'
 
 class BattleshipWeb < Sinatra::Base
+
+enable :sessions
+
+$board = Board.new(Cell)
 
   set :views, proc { File.join(root, 'views')}
 
@@ -15,20 +20,22 @@ class BattleshipWeb < Sinatra::Base
   end
 
   get '/name' do
-    @name = params[:name]
     erb :name_form
   end
 
   get '/board' do
-    @board = Board.new(Cell)
+    @name = params[:name] # This needs to change as it is resetting the name to nil everytime the page is refreshed
+    # session[:board] = Board.new(Cell)
+    $board
     @coordinates = params[:coordinates]
     @ship_type = params[:ship_type]
     @orientation = params[:orientation]
     erb :board
   end
 
-
-
+  post '/board' do
+    $board
+  end
 
   # def place(ship, coord, orientation = :horizontally)
   #   coords = [coord]
